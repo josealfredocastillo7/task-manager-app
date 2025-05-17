@@ -25,6 +25,7 @@ const description = ref('')
 
 const submitForm = async () => {
   try {
+    console.log('Submitting form with:', { title: title.value, description: description.value })
     await apiClient.post('/tasks', { title: title.value, description: description.value }) // Usa la instancia de Axios
     title.value = ''
     description.value = ''

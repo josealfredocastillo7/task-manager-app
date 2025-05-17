@@ -16,14 +16,14 @@ app.use(cors())
 const port = process.env.PORT || 3000
 const db = process.env.DB
 
+// Middleware to parse JSON bodies
+app.use(express.json())
+
 // Import the router
 const router = require('./config/router')
 
 // Use the router for handling routes with the prefix /api/v1
 app.use('/api/v1', router)
-
-// Middleware to parse JSON bodies
-app.use(express.json())
 
 // Connect to MongoDB
 mongoose.connect(db)
