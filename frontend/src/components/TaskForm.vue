@@ -29,11 +29,10 @@ const description = ref('')
 const submitForm = async () => {
   try {
     const newTask = { title: title.value, description: description.value }
-    await apiClient.post('/tasks', newTask) // Usa la instancia de Axios
+    const response = await apiClient.post('/tasks', newTask) // Usa la respuesta de la API
     title.value = ''
     description.value = ''
-    emit('task-added', newTask) // Emite un evento para notificar que se agregó una tarea
-    alert('Tarea creada con éxito')
+    emit('task-added', response.data) // Emite la tarea completa
   } catch (error) {
     console.error('Error creating task:', error)
   }

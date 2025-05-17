@@ -104,8 +104,12 @@ const confirmDelete = async () => {
 
 // Función para agregar una nueva tarea
 const addTask = (newTask) => {
-  tasks.value.push(newTask)
-  isAddDialogOpen.value = false
+  if (newTask && newTask._id) {
+    tasks.value.unshift(newTask) // Agrega la nueva tarea al inicio de la lista
+    isAddDialogOpen.value = false
+  } else {
+    console.error('La tarea creada no tiene un ID válido:', newTask)
+  }
 }
 
 // Función para formatear la fecha
