@@ -47,13 +47,16 @@
   <!-- Diálogo para agregar una nueva tarea -->
   <v-dialog v-model="isAddDialogOpen" max-width="500">
     <v-card class="rounded-xl px-4 py-8">
-      <v-card-title class="text-overline text-capitalize text-center">Agregar nueva tarea</v-card-title>
-      <v-card-text>
+      <v-card-title class="text-overline text-capitalize text-center font-weight-bold">Agregar nueva tarea</v-card-title>
+      <v-card-text class="mb-0 pb-0 px-0">
         <TaskForm @task-added="addTask" />
       </v-card-text>
-      <v-card-actions>
+      <v-card-actions class="px-5">
+        <v-btn color="red-lighten-2" class="text-capitalize" text @click="isAddDialogOpen = false"><v-icon>mdi-close</v-icon>Cancelar</v-btn>
         <v-spacer></v-spacer>
-        <v-btn text @click="isAddDialogOpen = false">Cerrar</v-btn>
+        <v-btn color="green-lighten-2" class="text-capitalize" text @click="isAddDialogOpen = false">
+          <v-icon class="mr-2">mdi-content-save-outline</v-icon> Guardar
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
