@@ -10,14 +10,19 @@
     </v-toolbar>
   </v-container>
   <v-container class="task-list">
-    <v-card @click="toggleStatus(task)" class="elevation-1 task-list-item px-4 py-8 rounded-xl d-flex flex-column" v-for="task in tasks" :key="task._id">
+    <v-card
+      @click="toggleStatus(task)"
+      class="elevation-1 task-list-item px-4 py-8 rounded-xl d-flex flex-column"
+      v-for="task in tasks"
+      :key="task._id"
+    >
       <v-card-actions>
         <span class="text-overline text-grey"> {{ task.status }}</span>
         <v-spacer></v-spacer>
-        <v-btn icon @click="toggleStatus(task)" :color="task.status === 'completada' ? 'green' : 'yellow-lighten-3'">
+        <v-btn icon @click="toggleStatus(task)" :color="task.status === 'completada' ? 'green' : 'white'">
           <v-icon>{{ task.status === 'completada' ? 'mdi-check' : 'mdi-clock' }}</v-icon>
         </v-btn>
-        <v-btn icon color="red" @click="deleteTask(task._id)">
+        <v-btn icon color="red" @click="openDeleteDialog(task)">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-card-actions>
@@ -38,6 +43,21 @@
       </v-card-actions>
     </v-card>
   </v-container>
+
+  <!-- Diálogo de confirmación -->
+  <v-dialog v-model="isDialogOpen" max-width="500">
+    <v-card>
+      <v-card-title class="text-h6">Confirmar eliminación</v-card-title>
+      <v-card-text>
+        ¿Estás seguro de que deseas eliminar esta tarea? Esta acción no se puede deshacer.
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn text @click="isDialogOpen = false">Cancelar</v-btn>
+        <v-btn color="red" text @click="confirmDelete">Eliminar</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script setup>
@@ -45,6 +65,26 @@ import { ref } from 'vue'
 import apiClient from '../services/axios' // Importa la instancia de Axios
 
 const tasks = ref([])
+const isDialogOpen = ref(false) // Controla la visibilidad del diálogo
+const taskToDelete = ref(null) // Almacena la tarea que se va a eliminar
+
+// Función para abrir el diálogo de confirmación
+const openDeleteDialog = (task) => {
+  taskToDelete.value = task
+  isDialogOpen.value = true
+}
+
+// Función para confirmar la eliminación
+const confirmDelete = async () => {
+  try {
+    await apiClient.delete(`/tasks/${taskToDelete.value._id}`) // Usa la instancia de Axios
+    tasks.value = tasks.value.filter((task) => task._id !== taskToDelete.value._id)
+    isDialogOpen.value = false
+    taskToDelete.value = null
+  } catch (error) {
+    console.error('Error deleting task:', error)
+  }
+}
 
 // Función para formatear la fecha
 const formatDate = (dateString) => {
@@ -68,15 +108,6 @@ const toggleStatus = async (task) => {
     task.status = newStatus
   } catch (error) {
     console.error('Error updating task status:', error)
-  }
-}
-
-const deleteTask = async (id) => {
-  try {
-    await apiClient.delete(`/tasks/${id}`) // Usa la instancia de Axios
-    tasks.value = tasks.value.filter((task) => task._id !== id)
-  } catch (error) {
-    console.error('Error deleting task:', error)
   }
 }
 
