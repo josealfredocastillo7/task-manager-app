@@ -31,7 +31,7 @@
           {{ task.title }}
         </span>
       </div>
-      <v-card-text class="text-body-1 mt-1 mb-0 pb-0 text-grey-lighten-2">
+      <v-card-text :class="theme.global.current.value.dark ? 'text-grey-lighten-2' : 'text-grey-darken-2' " class="text-body-1 mt-1 mb-0 pb-0">
         {{ task.description }}
       </v-card-text>
       <v-spacer class="flex-grow-1"></v-spacer> <!-- Espaciador flexible -->
@@ -78,10 +78,12 @@
 </template>
 
 <script setup>
+import { useTheme } from 'vuetify'
 import { ref } from 'vue'
 import TaskForm from '@/components/TaskForm.vue'
 import apiClient from '../services/axios' // Importa la instancia de Axios
 
+const theme = useTheme()
 const tasks = ref([])
 const isDialogOpen = ref(false) // Controla la visibilidad del diálogo de eliminación
 const isAddDialogOpen = ref(false) // Controla la visibilidad del diálogo para agregar tareas
