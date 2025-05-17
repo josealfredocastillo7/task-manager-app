@@ -20,15 +20,19 @@
 import { ref } from 'vue'
 import apiClient from '../services/axios' // Importa la instancia de Axios
 
+// Define el evento emitido
+const emit = defineEmits(['task-added'])
+
 const title = ref('')
 const description = ref('')
 
 const submitForm = async () => {
   try {
-    console.log('Submitting form with:', { title: title.value, description: description.value })
-    await apiClient.post('/tasks', { title: title.value, description: description.value }) // Usa la instancia de Axios
+    const newTask = { title: title.value, description: description.value }
+    await apiClient.post('/tasks', newTask) // Usa la instancia de Axios
     title.value = ''
     description.value = ''
+    emit('task-added', newTask) // Emite un evento para notificar que se agregó una tarea
     alert('Tarea creada con éxito')
   } catch (error) {
     console.error('Error creating task:', error)

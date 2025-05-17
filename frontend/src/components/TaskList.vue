@@ -3,7 +3,7 @@
     <v-toolbar class="elevation-1 rounded-xl px-10 mt-5">
       <span class="text-h6 text-grey">Lista de tareas completas y por hacer.</span>
       <v-spacer></v-spacer>
-      <v-btn class="text-capitalize" color="deep-purple-accent-1" @click="$router.push('/create')">
+      <v-btn class="text-capitalize" color="deep-purple-accent-1" @click="isAddDialogOpen = true">
         <v-icon class="mr-2">mdi-plus</v-icon>
         Crear Tarea
       </v-btn>
@@ -44,7 +44,21 @@
     </v-card>
   </v-container>
 
-  <!-- Diálogo de confirmación -->
+  <!-- Diálogo para agregar una nueva tarea -->
+  <v-dialog v-model="isAddDialogOpen" max-width="500">
+    <v-card>
+      <v-card-title class="text-h6">Agregar nueva tarea</v-card-title>
+      <v-card-text>
+        <TaskForm @task-added="addTask" />
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn text @click="isAddDialogOpen = false">Cerrar</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+
+  <!-- Diálogo de confirmación para eliminar -->
   <v-dialog v-model="isDialogOpen" max-width="500">
     <v-card>
       <v-card-title class="text-h6">Confirmar eliminación</v-card-title>
@@ -62,10 +76,12 @@
 
 <script setup>
 import { ref } from 'vue'
+import TaskForm from '@/components/TaskForm.vue'
 import apiClient from '../services/axios' // Importa la instancia de Axios
 
 const tasks = ref([])
-const isDialogOpen = ref(false) // Controla la visibilidad del diálogo
+const isDialogOpen = ref(false) // Controla la visibilidad del diálogo de eliminación
+const isAddDialogOpen = ref(false) // Controla la visibilidad del diálogo para agregar tareas
 const taskToDelete = ref(null) // Almacena la tarea que se va a eliminar
 
 // Función para abrir el diálogo de confirmación
@@ -84,6 +100,12 @@ const confirmDelete = async () => {
   } catch (error) {
     console.error('Error deleting task:', error)
   }
+}
+
+// Función para agregar una nueva tarea
+const addTask = (newTask) => {
+  tasks.value.push(newTask)
+  isAddDialogOpen.value = false
 }
 
 // Función para formatear la fecha

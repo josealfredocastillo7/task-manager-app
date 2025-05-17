@@ -8,7 +8,8 @@ const { Task } = require('../models')
  */
 const getTasks = async (req, res) => {
   try {
-    const tasks = await Task.find()
+    // Ordena las tareas por fecha de creación en orden descendente
+    const tasks = await Task.find().sort({ createdAt: -1 })
     res.status(200).json(tasks)
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener las tareas' })
