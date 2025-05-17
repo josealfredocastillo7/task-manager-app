@@ -19,6 +19,9 @@ const db = process.env.DB
 // Import the router
 const router = require('./config/router')
 
+// Use the router for handling routes with the prefix /api/v1
+app.use('/api/v1', router)
+
 // Middleware to parse JSON bodies
 app.use(express.json())
 

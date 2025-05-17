@@ -1,3 +1,7 @@
+const HomeController = require('./HomeController')
+const TaskController = require('./TaskController')
+
 module.exports = {
-  HomeController: require('./HomeController'),
+  HomeController,
+  TaskController,
 }
