@@ -49,12 +49,12 @@
     <v-card class="rounded-xl px-4 py-8">
       <v-card-title class="text-overline text-capitalize text-center font-weight-bold">Agregar nueva tarea</v-card-title>
       <v-card-text class="mb-0 pb-0 px-0">
-        <TaskForm @task-added="addTask" />
+        <TaskForm ref="taskForm" @task-added="addTask" />
       </v-card-text>
       <v-card-actions class="px-5">
         <v-btn color="red-lighten-2" class="text-capitalize" text @click="isAddDialogOpen = false"><v-icon>mdi-close</v-icon>Cancelar</v-btn>
         <v-spacer></v-spacer>
-        <v-btn color="green-lighten-2" class="text-capitalize" text @click="isAddDialogOpen = false">
+        <v-btn color="green-lighten-2" class="text-capitalize" text @click="saveTask">
           <v-icon class="mr-2">mdi-content-save-outline</v-icon> Guardar
         </v-btn>
       </v-card-actions>
@@ -86,6 +86,7 @@ const tasks = ref([])
 const isDialogOpen = ref(false) // Controla la visibilidad del diálogo de eliminación
 const isAddDialogOpen = ref(false) // Controla la visibilidad del diálogo para agregar tareas
 const taskToDelete = ref(null) // Almacena la tarea que se va a eliminar
+const taskForm = ref(null) // Referencia al formulario de tarea
 
 // Función para abrir el diálogo de confirmación
 const openDeleteDialog = (task) => {
@@ -137,6 +138,15 @@ const toggleStatus = async (task) => {
     task.status = newStatus
   } catch (error) {
     console.error('Error updating task status:', error)
+  }
+}
+
+const saveTask = async () => {
+  try {
+    await taskForm.value.submitForm() // Llama a la función submitForm del formulario de tarea
+    isAddDialogOpen.value = false
+  } catch (error) {
+    console.error('Error saving task:', error)
   }
 }
 
