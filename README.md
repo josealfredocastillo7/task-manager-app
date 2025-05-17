@@ -35,3 +35,23 @@ Aplicación full stack para la gestión de tareas, desarrollada como parte de un
 ```bash
 git clone https://github.com/josealfredocastillo7/task-manager-app.git
 cd task-manager-app
+
+## Backlog Prioritario y Estimado
+
+A continuación se detalla el backlog inicial del proyecto, con prioridad y tiempo estimado para cada tarea:
+
+| Tarea                                 | Prioridad | Estimación |
+|--------------------------------------|-----------|------------|
+| Ver listado de tareas                | Alta      | 2 horas    |
+| Crear tarea                          | Alta      | 1.5 horas  |
+| Actualizar estado de tarea           | Alta      | 1 hora     |
+| Eliminar tarea                       | Alta      | 1 hora     |
+| API CRUD con Express y MongoDB       | Crítica   | 4 horas    |
+| Manejo de errores en la API          | Media     | 1 hora     |
+| Interfaz UI responsiva               | Media     | 2 horas    |
+| Documentar entorno local             | Media     | 1 hora     |
+| Buen uso de Git                      | Alta      | Continuo   |
+| Preparar despliegue                  | Baja      | 1 hora     |
+
+> Este backlog fue también incorporado en el [tablero de proyecto](https://github.com/josealfredocastillo7/task-manager-app/projects) de GitHub, siguiendo una estructura tipo kanban para facilitar el seguimiento.
+
