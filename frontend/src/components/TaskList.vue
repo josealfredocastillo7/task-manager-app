@@ -46,8 +46,8 @@
 
   <!-- Diálogo para agregar una nueva tarea -->
   <v-dialog v-model="isAddDialogOpen" max-width="500">
-    <v-card>
-      <v-card-title class="text-h6">Agregar nueva tarea</v-card-title>
+    <v-card class="rounded-xl px-4 py-8">
+      <v-card-title class="text-overline text-capitalize text-center">Agregar nueva tarea</v-card-title>
       <v-card-text>
         <TaskForm @task-added="addTask" />
       </v-card-text>

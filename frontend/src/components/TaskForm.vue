@@ -1,16 +1,8 @@
 <template>
   <v-container>
     <v-form @submit.prevent="submitForm">
-      <v-text-field
-        v-model="title"
-        label="Título"
-        required
-      ></v-text-field>
-      <v-textarea
-        v-model="description"
-        label="Descripción"
-        required
-      ></v-textarea>
+      <v-text-field variant="outlined" v-model="title" label="Título" required></v-text-field>
+      <v-textarea variant="outlined" v-model="description" label="Descripción" required></v-textarea>
       <v-btn type="submit" color="primary">Guardar</v-btn>
     </v-form>
   </v-container>
