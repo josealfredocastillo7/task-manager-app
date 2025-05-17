@@ -1,5 +1,5 @@
 <template>
-  <v-main>
+  <v-main class="bg-app">
     <v-app-bar class="elevation-1" app>
       <template v-slot:prepend>
         <v-app-bar-nav-icon><v-icon>mdi-clipboard-multiple-outline</v-icon></v-app-bar-nav-icon>
@@ -30,5 +30,11 @@ const toggleTheme = () => {
 <style>
 .elevation-1 {
   box-shadow: 0 3px 8px rgba(34, 48, 62, 0.1), 0 0 transparent, 0 0 transparent !important;
+}
+.v-theme--light .bg-app {
+  background-color: #f5f5f9 !important;
+}
+.v-theme--light .v-toolbar {
+  background-color: #ffffff !important;
 }
 </style>
