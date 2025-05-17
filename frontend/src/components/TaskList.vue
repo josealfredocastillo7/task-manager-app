@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-toolbar class="elevation-1 rounded-xl px-10 mt-5">
-      <span class="text-h6 text-grey">Lista de tareas completas y por hacer.</span>
+      <span class="text-h6 text-grey">Lista de tareas.</span>
       <v-spacer></v-spacer>
       <v-btn class="text-capitalize" color="deep-purple-accent-1" @click="isAddDialogOpen = true">
         <v-icon class="mr-2">mdi-plus</v-icon>
